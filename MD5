@@ -1,8 +1,9 @@
-adb891dde60eaf9d2c36e6dbfe996de8 *DESCRIPTION
+a6868d423c31e5f844d9509a738e950a *DESCRIPTION
 601fde102bba283b23e31dc0646a13c9 *NAMESPACE
-887b22ecfe1e4af0f5499c76fc73c830 *R/ttwa-internal.R
-8cf62dc21af86f17835666942d12a11a *R/ttwa.R
+e3346c4eade3a8ae3c26558020ddd262 *NEWS
+35f6161839801bb2605bc14f9736392f *R/ttwa-internal.R
+4132bad78853dfb3e6b5137250b99021 *R/ttwa.R
 a269baffd61cc33f0c01e357ef33354a *data/reunion_ttw.rda
-124d431dee2b54199afa258408c677d3 *man/reunion_ttw.Rd
-8bdd15f99efac68ebd38f4cdd22ebf2f *man/ttwa-package.Rd
-e8f3301dc95489f256abed65c1462e22 *man/ttwa.Rd
+b738fc13da2b264e3635e45f8edad2ec *man/reunion_ttw.Rd
+9530b8ea074bd6c8ffb5d149755e6b71 *man/ttwa-package.Rd
+77bc7d648587f859d226947a7aabc27c *man/ttwa.Rd

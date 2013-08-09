@@ -17,15 +17,21 @@ function(data,link_maximum,conti,flow="flow",origin="origin",destination="destin
   return(data)
 }
 .link_max <-
-function(data,size_center,conti)
+function(data,size_center,conti,list_center)
 {
   if (!is.null(conti))
     {
-      data<-data[(data$destination!=data$origin)&(data$sdestinationck_origin<size_center)&(data$conti),]
+      if (is.null(list_center))
+        {data<-data[(data$destination!=data$origin)&(data$sdestinationck_origin<size_center)&(data$conti),]}
+      else 
+        {data<-data[(data$destination!=data$origin)&(data$sdestinationck_origin<size_center)&(data$conti)&(!(data$origin %in% list_center)),]}
     }
   else
     {
-      data<-data[(data$destination!=data$origin)&(data$sdestinationck_origin<size_center),]
+      if (is.null(list_center)) 
+        {data<-data[(data$destination!=data$origin)&(data$sdestinationck_origin<size_center),]}
+      else
+        {data<-data[(data$destination!=data$origin)&(data$sdestinationck_origin<size_center)&(!(data$origin %in% list_center)),]}
     }
   return(data[which.max(data$link),])      
 }

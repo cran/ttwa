@@ -1,0 +1,7 @@
+ttwa 0.8.5.1
+-------------------------------------------------------------------------
+
+CHANGES
+
+* now list_center argument in function ttwa allows you to define inalienable centers from the beginning of the process of aggregation
+* in class "zoning", statistic data.frame contains number of primary territories

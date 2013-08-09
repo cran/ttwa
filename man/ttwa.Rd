@@ -8,7 +8,8 @@ Zoning Commuting flow
 This function computes the commuting areas from a flow data. It is especially effective for calculating the travel to work area (TTWA). TTWA are defined to reflect areas where the bulk of the resident population also works within the same area. TTWA defines local labour market area. The ttwa function uses a greedy algorithm. Progressively, areas aggregate themselves with their link when above a threshold. The ttwa is an adaptation of the algorithm used by the INSEE zoning, Anabel. 
 }
 \usage{
-ttwa(df, origin, destination, flow, conti = NULL, minimum_link, size_center)
+ttwa(df, origin, destination, flow, conti = NULL, 
+minimum_link = 0.00001, size_center, list_center = NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,6 +29,8 @@ name of the qualitative variable that contains the flow
   \item{minimum_link}{minimum link aggregation allows between area}
   \item{size_center}{
 size of area who can't be aggregated to an other area. enter_size determines the minimum size of commuting area.}
+  \item{list_center}{list of identifiers of non-aggregatable territories to other centers but they   can attract other territories and become centers or otherwise isolated clusters.}
+
 }
 \details{
 The ttwa is an adaptation of the algorithm used by the INSEE zoning, Anabel. For each iteration, we search for the strongest link between the two areas which meet the parameters of aggregation (contiguity and center size). Then, it is aggregated to the lines of the data.frame associated with the two areas. Thus, the area's name formed is the name of the destination area of the stream. It repeats the process until we can find areas with a sufficient nexus.
@@ -40,7 +43,7 @@ An object of class "zoning" is a list containing at least the following componen
 \item{zoning}{data frame contains the initial area and their commuting area of attachment}
 \item{log}{data frame containing the log of the greedy processus}
 \item{data}{data frame containing the aggregated flow between commuting area}
-\item{statistic}{data frame containing the statistics area (the total outflow, rate stable at origin)}
+\item{statistic}{data frame containing the statistics area by zone (the total outflow, rate stable at origin, number of primary territories)}
 }
 
 \author{
@@ -61,12 +64,20 @@ Christophe Terrier web site is a reference to the method Anabel-Mirabel: www.chr
 
 \examples{
 data(reunion_ttw) #commuting flow in Reunion island
-zone_emploi<-ttwa(df=reunion_ttw,origin="HOME",destination="WORK",
-  flow="FLOW",conti="CONTI",0.0001,50000)
-#Zoning quality 
-zone_emploi$statistic
+zone_emploi<-ttwa(df=reunion_ttw,origin="HOME",
+  destination="WORK", flow="FLOW",
+  conti="CONTI",size_center=50000)
+zone_emploi$statistic #Zoning quality 
+# 4 centers : Saint-Denis, Saint-Paul, Saint-Pierre and Saint-Benoit
+center_emploi<-ttwa(df=reunion_ttw,origin="HOME",
+  destination="WORK",flow="FLOW",
+  conti="CONTI",size_center=500000,
+  list_center=c("97411","97415","97416","97410"))
+center_emploi$statistic
+
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ ttwa }
+

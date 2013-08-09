@@ -1,5 +1,5 @@
 ttwa <-
-function(df,origin,destination,flow,conti=NULL,minimum_link,size_center)
+function(df,origin,destination,flow,conti=NULL,minimum_link=0.00001,size_center,list_center=NULL)
 {
   if (!is.null(conti))
     {
@@ -28,7 +28,7 @@ function(df,origin,destination,flow,conti=NULL,minimum_link,size_center)
   
   for (i in 1:nrow(zoning))
   {
-    link_maximum<-.link_max(temp,size_center,conti)
+    link_maximum<-.link_max(temp,size_center,conti,list_center)
     if (nrow(link_maximum)==0){break}
     if (link_maximum$link>=minimum_link)
     {
@@ -43,7 +43,7 @@ function(df,origin,destination,flow,conti=NULL,minimum_link,size_center)
   
   statistic<-aggregate(data.frame(t_outflow=temp$flow,rate_steady=(temp$flow*(temp$origin==temp$destination))),list(zone=temp$origin),sum)
   statistic$rate_steady<-statistic$rate_steady/statistic$t_outflow
-                       
+  statistic<-merge(statistic,aggregate(data.frame(size=rep(1,nrow(zoning))) ,by=list(zone=zoning$zone),sum))
   
   return(structure(list(zoning=zoning,log=log,data=temp,statistic=statistic),class="zoning"))
 }

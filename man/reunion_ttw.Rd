@@ -38,9 +38,15 @@ http://www.insee.fr/fr/bases-de-donnees/default.asp?page=recensement/resultats/d
 
 \examples{
 data(reunion_ttw) #commuting flow in Reunion island
-zone_emploi<-ttwa(df=reunion_ttw,origin="HOME",destination="WORK",
-  flow="FLOW",conti="CONTI",0.0001,50000)
-#Zoning quality 
-zone_emploi$statistic
+zone_emploi<-ttwa(df=reunion_ttw,origin="HOME",
+  destination="WORK", flow="FLOW",
+  conti="CONTI",size_center=50000)
+zone_emploi$statistic #Zoning quality 
+# 4 centers : Saint-Denis, Saint-Paul, Saint-Pierre and Saint-Benoit
+center_emploi<-ttwa(df=reunion_ttw,origin="HOME",
+  destination="WORK",flow="FLOW",
+  conti="CONTI",size_center=500000,
+  list_center=c("97411","97415","97416","97410"))
+center_emploi$statistic
 }
 \keyword{datasets}
